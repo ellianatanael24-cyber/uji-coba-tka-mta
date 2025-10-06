@@ -150,10 +150,10 @@
 
   // Deteksi pindah tab
   document.addEventListener("visibilitychange", () => {
-    if (ujianSelesai) return;
+    if (ujianSelesai) return; // abaikan jika ujian sudah selesai
     if (document.hidden) {
       pelanggaran++;
-      logPelanggaran("Pindah tab terdeteksi ("+pelanggaran+")");
+      logPelanggaran("Pindah tab terdeteksi (" + pelanggaran + ")");
       if (pelanggaran >= pelanggaranMaks) {
         gagalUjian("Terlalu banyak pelanggaran (pindah tab/keluar fullscreen)");
       }
@@ -175,6 +175,7 @@
 </script>
 </body>
 </html>
+
 
 
 
