@@ -38,7 +38,7 @@
 
   <!-- Halaman Ujian -->
   <div id="halaman-ujian" class="hidden">
-    <iframe src="https://forms.gle/SQMLqfkVaiqXdLG99" width="100%" height="500" frameborder="0"></iframe>
+    <iframe src="https://forms.gle/1BmrvXvMWiWzRjws9" width="100%" height="500" frameborder="0"></iframe>
     <br><br>
     <button class="btn" onclick="selesaiUjian()">Selesai Ujian</button>
   </div>
@@ -58,7 +58,7 @@
 <div id="log"></div>
 
 <script>
-  let waktuUjian = 30 * 60; // detik (contoh: 10 menit)
+  let waktuUjian = 45 * 60; // detik (contoh: 10 menit)
   let timerInterval;
   let pelanggaran = 0;
   const pelanggaranMaks = 3;
@@ -150,17 +150,13 @@
 
   // Deteksi pindah tab
   document.addEventListener("visibilitychange", () => {
-  // pastikan deteksi hanya aktif ketika halaman ujian terbuka dan ujian belum selesai
-  const sedangUjian = !halamanUjian.classList.contains("hidden");
-  if (ujianSelesai || !sedangUjian) return;
-
-  if (document.visibilityState === "hidden") {
-    pelanggaran++;
-    logPelanggaran("Pindah tab terdeteksi (" + pelanggaran + ")");
-    if (pelanggaran >= pelanggaranMaks) {
-      gagalUjian("Terlalu banyak pelanggaran (pindah tab/keluar fullscreen)");
+    if (document.hidden) {
+      pelanggaran++;
+      logPelanggaran("Pindah tab terdeteksi ("+pelanggaran+")");
+      if (pelanggaran >= pelanggaranMaks) {
+        gagalUjian("Terlalu banyak pelanggaran (pindah tab/keluar fullscreen)");
+      }
     }
-  }
   });
 
   // Deteksi keluar fullscreen
@@ -178,8 +174,4 @@
 </script>
 </body>
 </html>
-
-
-
-
 
