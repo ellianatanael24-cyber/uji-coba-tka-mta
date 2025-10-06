@@ -150,14 +150,17 @@
 
   // Deteksi pindah tab
   document.addEventListener("visibilitychange", () => {
-    if (ujianSelesai) return; // abaikan jika ujian sudah selesai
-    if (document.hidden) {
-      pelanggaran++;
-      logPelanggaran("Pindah tab terdeteksi (" + pelanggaran + ")");
-      if (pelanggaran >= pelanggaranMaks) {
-        gagalUjian("Terlalu banyak pelanggaran (pindah tab/keluar fullscreen)");
-      }
+  // pastikan deteksi hanya aktif ketika halaman ujian terbuka dan ujian belum selesai
+  const sedangUjian = !halamanUjian.classList.contains("hidden");
+  if (ujianSelesai || !sedangUjian) return;
+
+  if (document.visibilityState === "hidden") {
+    pelanggaran++;
+    logPelanggaran("Pindah tab terdeteksi (" + pelanggaran + ")");
+    if (pelanggaran >= pelanggaranMaks) {
+      gagalUjian("Terlalu banyak pelanggaran (pindah tab/keluar fullscreen)");
     }
+  }
   });
 
   // Deteksi keluar fullscreen
@@ -175,6 +178,7 @@
 </script>
 </body>
 </html>
+
 
 
 
